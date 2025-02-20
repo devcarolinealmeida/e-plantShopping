@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProductList.css";
 import CartItem from "./CartItem";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addItem, removeItem, updateQuantity } from "./CartSlice";
 
 function ProductList() {
@@ -9,6 +9,7 @@ function ProductList() {
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
   const [addedToCart, setAddedToCart] = useState({});
   const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart.items);
 
   const plantsArray = [
     {
@@ -294,7 +295,9 @@ function ProductList() {
        [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
      }));
   };
-
+  const calculateTotalItems = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
+  };
 
   return (
     <div>
@@ -342,6 +345,7 @@ function ProductList() {
                     stroke-width="2"
                     id="mainIconPathAttribute"></path>
                 </svg>
+                <div className="cart_quantity_count">{calculateTotalItems()}</div>
               </h1>
             </a>
           </div>

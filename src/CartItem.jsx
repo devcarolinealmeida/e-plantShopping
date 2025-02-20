@@ -16,6 +16,8 @@ const CartItem = ({ onContinueShopping }) => {
     return total.toFixed(2);
   };
 
+ 
+
   const handleContinueShopping = (e) => {
     onContinueShopping(e);
   };
